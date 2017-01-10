@@ -10,7 +10,10 @@ import {
   View,
   TextInput,
   TouchableHighlight,
+  Dimensions,
 } from 'react-native';
+
+import NavigationBar from 'react-native-navbar';
 
 class tools extends Component {
   constructor(props) {
@@ -37,13 +40,18 @@ class tools extends Component {
   }
   render() {
     return (
-      <ListView 
-        automaticallyAdjustContentInsets={false}
-        contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
-        pageSize={4}
-        renderRow={this.renderRow}
-      />
+      <View style={{ flex: 1 }}>
+        <NavigationBar
+
+        />
+        <ListView 
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={styles.list}
+          dataSource={this.state.dataSource}
+          pageSize={4}
+          renderRow={this.renderRow}
+        />
+      </View>
     );
   }
 }
@@ -58,8 +66,8 @@ const styles = StyleSheet.create({
   },  
   row: {  
     flex: 1,
-    width: 80,
-    height: 80,
+    width: Dimensions.get('window').width / 4,
+    height: Dimensions.get('window').width / 4,
     justifyContent: 'center',
     backgroundColor: '#F6F6F6',  
     borderWidth: 1,
