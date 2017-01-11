@@ -20,7 +20,7 @@ class tools extends Component {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(['test', 'test', 'test', 'stest', 'bad', 'fdafdsa', 'fdafdsa', 'fdafdsa', 'rewqreqw']),
+      dataSource: ds.cloneWithRows(['Calculator',]),
     };
   }
 
@@ -31,7 +31,7 @@ class tools extends Component {
           <View style={styles.row}>
             <Image style={styles.thum}/>
             <Text style={styles.text}>
-              {rowData}, {sectionID}, {rowID}
+              {rowData}
             </Text>
           </View>
         </View>
@@ -39,10 +39,19 @@ class tools extends Component {
     );
   }
   render() {
+    var navTitleConfig = {
+      title: 'RN小应用学习',
+      tintColor: 'white',
+    };
+    var navStatusBarConfig = {
+      style: 'light-content',
+    }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
         <NavigationBar
-
+          title={navTitleConfig}
+          tintColor='#0767c8'
+          statusBar={navStatusBarConfig}
         />
         <ListView 
           automaticallyAdjustContentInsets={false}
@@ -69,9 +78,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 4,
     height: Dimensions.get('window').width / 4,
     justifyContent: 'center',
-    backgroundColor: '#F6F6F6',  
+    backgroundColor: '#F5FCFF',  
     borderWidth: 1,
     borderColor: '#CCC',
+    alignItems: 'center',
   },  
   thumb: {  
     width: 64,  
