@@ -15,6 +15,10 @@ import {
 
 import NavigationBar from 'react-native-navbar';
 
+var IMAGE_URLS = [
+  require('./image/Calculator.png'),
+];
+
 class tools extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +29,15 @@ class tools extends Component {
   }
 
   renderRow(rowData, sectionID, rowID) {
+    var imgSource = IMAGE_URLS[rowID];
     return (
       <TouchableHighlight underlayColor="red">
         <View>
           <View style={styles.row}>
-            <Image style={styles.thum}/>
+            <Image 
+              source={imgSource}
+              style={styles.thum}
+            />
             <Text style={styles.text}>
               {rowData}
             </Text>
@@ -79,16 +87,16 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 4,
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',  
-    borderWidth: 1,
-    borderColor: '#CCC',
+    // borderWidth: 1,
+    // borderColor: '#CCC',
     alignItems: 'center',
   },  
-  thumb: {  
-    width: 64,  
-    height: 64,  
+  thum: { 
+    alignItems: 'center', 
+    width: Dimensions.get('window').width / 8,  
+    height: Dimensions.get('window').width / 8,
   },  
   text: {  
-    flex: 1,  
     marginTop: 5,  
     fontWeight: 'bold', 
   },  
