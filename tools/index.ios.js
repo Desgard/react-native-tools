@@ -11,15 +11,28 @@ import {
   TextInput,
   TouchableHighlight,
   Dimensions,
+  NavigatorIOS,
 } from 'react-native';
 
-import NavigationBar from 'react-native-navbar';
+class tools extends Component {                                                                                                                                                                                                
+  render() {
+    return (
+      <NavigatorIOS
+        initialRoute={{
+          component: MenuPage,
+          title: 'RN小应用学习',
+        }}
+        style={{flex: 1}}
+      />
+    );
+  }
+}
 
 var IMAGE_URLS = [
   require('./image/Calculator.png'),
 ];
 
-class tools extends Component {
+class MenuPage extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -31,7 +44,13 @@ class tools extends Component {
   renderRow(rowData, sectionID, rowID) {
     var imgSource = IMAGE_URLS[rowID];
     return (
-      <TouchableHighlight underlayColor="red">
+      <TouchableHighlight 
+        onPress={() => {
+          alert(rowID);
+          this.props.navigator.push({
+            component: Calculator,
+          });
+        }}>
         <View>
           <View style={styles.row}>
             <Image 
@@ -46,21 +65,14 @@ class tools extends Component {
       </TouchableHighlight>
     );
   }
+
   render() {
-    var navTitleConfig = {
-      title: 'RN小应用学习',
-      tintColor: 'white',
-    };
     var navStatusBarConfig = {
       style: 'light-content',
     }
     return (
       <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-        <NavigationBar
-          title={navTitleConfig}
-          tintColor='#0767c8'
-          statusBar={navStatusBarConfig}
-        />
+        <View styles={styles.nav}></View>
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentContainerStyle={styles.list}
@@ -75,7 +87,7 @@ class tools extends Component {
 
 const styles = StyleSheet.create({
   list: {  
-    marginTop:20,  
+    marginTop:64,  
     flexDirection: 'row',  
     flexWrap: 'wrap',
     alignItems: 'flex-start',
