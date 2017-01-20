@@ -34,7 +34,7 @@ var Cell = React.createClass({
   }
 });
 
-export default class calculator extends Component {
+export default class Calculator extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -245,6 +245,6 @@ var styles = StyleSheet.create({
   textSigInside: {
     color: 'white',
   },
-})
+});
 
-AppRegistry.registerComponent('calculator', () => calculator);
+

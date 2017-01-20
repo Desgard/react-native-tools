@@ -14,6 +14,8 @@ import {
   NavigatorIOS,
 } from 'react-native';
 
+import Calculator from './tools/Calculator'
+
 class tools extends Component {                                                                                                                                                                                                
   render() {
     return (
@@ -21,8 +23,20 @@ class tools extends Component {
         initialRoute={{
           component: MenuPage,
           title: 'RN小应用学习',
+          shadowHidden: false,
+          rightButtonTitle: 'Github',
+          onRightButtonPress: () => {
+            alert('right');
+            this.props.navigator.push({
+              title:'right',
+              component: example,
+            })
+          }
         }}
         style={{flex: 1}}
+        barTintColor = '#205081'
+        tintColor = 'white'
+        titleTextColor = 'white'
       />
     );
   }
@@ -33,6 +47,7 @@ var IMAGE_URLS = [
 ];
 
 class MenuPage extends Component {
+
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -44,13 +59,12 @@ class MenuPage extends Component {
   renderRow(rowData, sectionID, rowID) {
     var imgSource = IMAGE_URLS[rowID];
     return (
-      <TouchableHighlight 
-        onPress={() => {
-          alert(rowID);
-          this.props.navigator.push({
-            component: Calculator,
-          });
-        }}>
+      <TouchableHighlight onPress={() => {
+        this.props.navigator.push({
+          title: 'test',
+          component: example,
+        });
+      }}>
         <View>
           <View style={styles.row}>
             <Image 
@@ -71,7 +85,9 @@ class MenuPage extends Component {
       style: 'light-content',
     }
     return (
-      <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
+      <View 
+        style={{ flex: 1, backgroundColor: '#F5FCFF' }}
+        >
         <View styles={styles.nav}></View>
         <ListView 
           automaticallyAdjustContentInsets={false}
@@ -81,6 +97,14 @@ class MenuPage extends Component {
           renderRow={this.renderRow}
         />
       </View>
+    );
+  }
+}
+
+class example extends Component {
+  render() {
+    return (
+      <Text navigator={this.props.navigator}>Example</Text>
     );
   }
 }
