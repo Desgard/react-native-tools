@@ -25,13 +25,6 @@ class tools extends Component {
           title: 'RN小应用学习',
           shadowHidden: false,
           rightButtonTitle: 'Github',
-          onRightButtonPress: () => {
-            alert('right');
-            this.props.navigator.push({
-              title:'right',
-              component: example,
-            })
-          }
         }}
         style={{flex: 1}}
         barTintColor = '#205081'
@@ -59,11 +52,12 @@ class MenuPage extends Component {
   renderRow(rowData, sectionID, rowID) {
     var imgSource = IMAGE_URLS[rowID];
     return (
-      <TouchableHighlight onPress={() => {
-        this.props.navigator.push({
-          title: 'test',
-          component: example,
-        });
+      <TouchableHighlight onPress = {() => {
+        // this.props.navigator.push({
+        //   title: 'test',
+        //   component: example,
+        // });   
+        console.log(this.props.navigator);
       }}>
         <View>
           <View style={styles.row}>
@@ -85,9 +79,7 @@ class MenuPage extends Component {
       style: 'light-content',
     }
     return (
-      <View 
-        style={{ flex: 1, backgroundColor: '#F5FCFF' }}
-        >
+      <View style={{ flex: 1, backgroundColor: '#F5FCFF'}}>
         <View styles={styles.nav}></View>
         <ListView 
           automaticallyAdjustContentInsets={false}
@@ -104,7 +96,7 @@ class MenuPage extends Component {
 class example extends Component {
   render() {
     return (
-      <Text navigator={this.props.navigator}>Example</Text>
+      <Text>Example</Text>
     );
   }
 }
