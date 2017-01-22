@@ -14,17 +14,25 @@ import {
   NavigatorIOS,
 } from 'react-native';
 
-import Calculator from './tools/Calculator'
+import Calculator from './tools/Calculator';
+import GithubWebView from './GithubWebView';
 
-class tools extends Component {                                                                                                                                                                                                
+export default class tools extends Component {                                                                                                                                                                                                
   render() {
     return (
       <NavigatorIOS
+        ref = 'nav'
         initialRoute={{
           component: MenuPage,
-          title: 'RN小应用学习',
+          title: 'RN Tools',
           shadowHidden: false,
           rightButtonTitle: 'Github',
+          onRightButtonPress: () => {
+            this.refs.nav.push({
+              component: GithubWebView,
+              title: 'Follow Me',
+            });
+          }
         }}
         style={{flex: 1}}
         barTintColor = '#205081'
@@ -39,8 +47,13 @@ var IMAGE_URLS = [
   require('./image/Calculator.png'),
 ];
 
-class MenuPage extends Component {
+var COMPONENT_LIST = [
+  Calculator,
+];
 
+var NavigatorObj;
+
+class MenuPage extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -48,16 +61,17 @@ class MenuPage extends Component {
       dataSource: ds.cloneWithRows(['Calculator',]),
     };
   }
+  
 
   renderRow(rowData, sectionID, rowID) {
     var imgSource = IMAGE_URLS[rowID];
     return (
-      <TouchableHighlight onPress = {() => {
-        // this.props.navigator.push({
-        //   title: 'test',
-        //   component: example,
-        // });   
-        console.log(this.props.navigator);
+      <TouchableHighlight onPress={() => {
+        console.log(NavigatorObj);
+        NavigatorObj.push({
+          title: rowData,
+          component: COMPONENT_LIST[rowID],
+        });
       }}>
         <View>
           <View style={styles.row}>
@@ -78,8 +92,10 @@ class MenuPage extends Component {
     var navStatusBarConfig = {
       style: 'light-content',
     }
+    console.log(this.props.navigator);
+    NavigatorObj = this.props.navigator;
     return (
-      <View style={{ flex: 1, backgroundColor: '#F5FCFF'}}>
+      <View style={{ flex: 1, backgroundColor: '#F5FCFF'}} >
         <View styles={styles.nav}></View>
         <ListView 
           automaticallyAdjustContentInsets={false}
@@ -89,14 +105,6 @@ class MenuPage extends Component {
           renderRow={this.renderRow}
         />
       </View>
-    );
-  }
-}
-
-class example extends Component {
-  render() {
-    return (
-      <Text>Example</Text>
     );
   }
 }
